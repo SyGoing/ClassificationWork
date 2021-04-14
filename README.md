@@ -25,21 +25,7 @@
 
    - Firstly,put your dataset to the DataSet dir. Different class with different dir . Here is a demo: 
 
-   --DataSet
-
-		--maskdata
-
-   ​			--train
-
-   ​					--pos
-
-   ​					--neg
-
-   ​			--test
-
-   ​					--pos
-
-   ​					--neg
+	DataSet/maskdata, you refer this dir structure
 
    pos(face with mask)
 
