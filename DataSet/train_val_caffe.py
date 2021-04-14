@@ -1,6 +1,8 @@
 #!encoding=utf-8
 import os
 
+formats=[".jpg",".png", ".jpeg",".bmp"]
+
 def IsSubString(SubStrList, Str):
     flag = True
     for substr in SubStrList:
@@ -29,48 +31,33 @@ def GetFileList(FindPath, FlagStr=[]):
 
     return FileList
 
+def genImgList(data_root,cat_ids,f):
+    dirs = os.listdir(data_root)
+    for dir in dirs:
+        classID = cat_ids[dir]
+        classdir = os.path.join(data_root, dir)
+        filelist = GetFileList(classdir)
+        for img in filelist:
+            if os.path.splitext(img)[1] not in formats:
+                continue
+            line = img + ' ' + str(classID) + '\n'  # 用空格代替转义字符 \t
+            f.writelines(line)
 
 train_txt = open('trainval.txt', 'w')
 test_txt = open('val.txt', 'w')
-# 制作图片目录文件
 
-# imgfile1 = GetFileList('trains/CCM')
-# for img in imgfile1:
-#     str1 = img+' '+'0'+'\n'  # 用空格代替转义字符 \t
-#     train_txt.writelines(str1)
+# classes name list
+classNames=["neg","pos"]
+cat_ids = {v: i for i, v in enumerate(classNames)}
+#class data root in Dataset
+train_root="maskdata/train"
+test_root="maskdata/val"
 
-imgfile10 = GetFileList('maskdata/game_gauzeMask_data/train/neg')
-for img in imgfile10:
-    if os.path.splitext(img)[1]!='.jpg':
-        continue
-    str1 = img+' '+'0'+'\n'  # 用空格代替转义字符 \t
-    train_txt.writelines(str1)
+genImgList(train_root,cat_ids,train_txt)
+genImgList(test_root,cat_ids,test_txt)
 
-imgfile20 = GetFileList('maskdata/game_gauzeMask_data/train/pos')
-for img in imgfile20:
-    if os.path.splitext(img)[1]!='.jpg':
-        continue
-    str2 = img+' '+'1'+'\n'
-    train_txt.writelines(str2)
-
-# imgfile30 = GetFileList('trains/prison_samples/policemen')
-# for img in imgfile30:
-#     str3= img+' '+'2'+'\n'
-#     train_txt.writelines(str3)
 
 train_txt.close()
-
-# 测试集文件列表
-# imgfile = GetFileList('vals/kid')  # 将数据集放在与.py文件相同目录下
-# for img in imgfile:
-#     str5 = img + ' ' + '0' + '\n'
-#     test_txt.writelines(str5)
-#
-# imgfile = GetFileList('vals/teacher')
-# for img in imgfile:
-#     str6= img + ' ' + '1' + '\n'
-#     test_txt.writelines(str6)
-
 test_txt.close()
 
-print("成功生成文件列表")
+print("complete ! ! !")

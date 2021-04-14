@@ -18,3 +18,54 @@
 - motmetrics
 - opencv-python
 - funcy
+
+### Usage
+
+1.  Prepare Data
+
+   - Firstly,put your dataset to the DataSet dir. Different class with different dir . Here is a demo: 
+
+   --DataSet
+
+   ​	--maskdata
+
+   ​		--train
+
+   ​			--pos
+
+   ​			--neg
+
+   ​		--test
+
+   ​			--pos
+
+   ​			--neg
+
+   pos(face with mask)
+
+   neg(face without mask)
+
+   - Secondly, use the train_val_caffe.py to generate the label list file. Modify the line50-54 according your dataset
+
+     ```
+     # classes name list
+     classNames=["neg","pos"]
+     cat_ids = {v: i for i, v in enumerate(classNames)}
+     #class data root in Dataset
+     train_root="maskdata/train"
+     test_root="maskdata/val"
+     ```
+
+2. Training
+
+   ​	You can choose different .py to train your model. For common training method, you can choose the common_train.py , Just modify  the params in the argparse for your task and data.  And there are other methods such as:
+
+   -   knowledge_distiliing_training.py,
+
+   -   mean_teacher_training.py
+
+   -   mean_teacher_training_resnet10.py
+
+3. export to onnx
+
+   export_onnx.py to do 
