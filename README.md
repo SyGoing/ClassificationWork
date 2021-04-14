@@ -27,19 +27,19 @@
 
    --DataSet
 
-   ​	--maskdata
+		--maskdata
 
-   ​		--train
+   ​			--train
 
-   ​			--pos
+   ​					--pos
 
-   ​			--neg
+   ​					--neg
 
-   ​		--test
+   ​			--test
 
-   ​			--pos
+   ​					--pos
 
-   ​			--neg
+   ​					--neg
 
    pos(face with mask)
 
