@@ -4,7 +4,7 @@
 
 - Data Augmentation: mixup, cut-mix, random crop, flip, random hsv, random brightness and so on.
 - Some Algorithm: mean-teacher, knowledge-distilling, warm-up training
-- backbone: resnet, mobilenetv2, mobilenetv3, resnet10, chostnet, efficientnet,efficientv2,RepVgg, shufflenetv1/v2. Some models can be create by the pretrained models in torchbision
+- backbone: resnet, mobilenetv2, mobilenetv3, resnet10, chostnet, efficientnet,efficientv2,RepVgg, shufflenetv1/v2. Some models can be created with the pretrained models in torchvision
 
 ### Requirments
 
