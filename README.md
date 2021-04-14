@@ -54,4 +54,4 @@
 
 3. export to onnx
 
-   export_onnx.py to do 
+   please refer the export_onnx.py, and modify some params(argparse) according to your model
