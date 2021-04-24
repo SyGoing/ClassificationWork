@@ -98,8 +98,8 @@ def train(epoch,net,trainloader,criterion,optimizer,use_cuda,batches_per_epoch,m
         loss.backward()
         optimizer.step()
 
-        if batch_num>burnIn:
-            lr_scheduler.step()
+        # if batch_num>burnIn:
+        #     lr_scheduler.step()
 
         train_loss += loss.data.item()
         _, predicted = torch.max(outputs.data, 1)
@@ -108,7 +108,7 @@ def train(epoch,net,trainloader,criterion,optimizer,use_cuda,batches_per_epoch,m
 
         # progress_bar(batch_idx, len(trainloader), 'Loss: %.3f | Acc: %.3f%% (%d/%d)'
         #     % (train_loss/(batch_idx+1), 100.*correct/total, correct, total))
-    return (train_loss/batch_idx, 100.*correct/total)
+    return (train_loss/batch_idx, 100.*correct/total,batch_num)
 
 def test(net,testloader,criterion,use_cuda,device):
     net.eval()
@@ -234,9 +234,12 @@ def main_train(args):
         for param_group in optimizer.param_groups:
             print('current learning rate is: ',param_group['lr'])
             break
-        train_loss, train_acc = train(epoch, net, trainloader, criterion, optimizer,use_cuda,batches_per_epoch,
+        train_loss, train_acc ,batch_num= train(epoch, net, trainloader, criterion, optimizer,use_cuda,batches_per_epoch,
                                       mixType="mixup",device=device,lr_scheduler=lr_scheduler,burnIn=burn_in)
         test_loss, test_acc = test(net, testloader, criterion, use_cuda,device)
+
+        if batch_num>burn_in:
+            lr_scheduler.step(epoch)
 
         state = {
             'epoch': epoch + 1,
